@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useUsers } from '../context/UserContext';
+import type { User } from '../types/user';
 
 export const useUserActions = () => {
   const navigate = useNavigate();
@@ -9,13 +10,12 @@ export const useUserActions = () => {
     navigate(`/dashboard/users/${id}`);
   };
 
-  const handleUpdateStatus = (id: string, newStatus: string) => {
-     
-    const updated = users.map(user => 
+  const handleUpdateStatus = (id: string, newStatus: User['status']) => {
+    const updated = users.map(user =>
       user.id === id ? { ...user, status: newStatus } : user
     );
     if (setUsers) setUsers(updated);
-    
+
     console.log(`User ${id} is now ${newStatus}`);
   };
 

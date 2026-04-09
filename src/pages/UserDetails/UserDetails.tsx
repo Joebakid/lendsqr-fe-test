@@ -10,7 +10,6 @@ const UserDetails = () => {
   const { users } = useUsers();
   const [activeTab, setActiveTab] = useState('General Details');
 
-  // Scroll to top whenever the ID changes
   useEffect(() => {
     window.scrollTo(0, 0);
     const mainArea = document.querySelector('main');
@@ -77,7 +76,7 @@ const UserDetails = () => {
       case 'Bank Details':
         return (
           <div className={styles.infoCard}>
-             <section className={styles.infoSection}>
+            <section className={styles.infoSection}>
               <h4>Bank Details</h4>
               <div className={styles.grid}>
                 <InfoItem label="BANK NAME" value="Providus Bank" />
@@ -92,7 +91,7 @@ const UserDetails = () => {
       case 'Loans':
         return (
           <div className={styles.infoCard}>
-             <section className={styles.infoSection}>
+            <section className={styles.infoSection}>
               <h4>Loan Information</h4>
               <div className={styles.grid}>
                 <InfoItem label="LOAN REPAYMENT" value={`₦${user.education.loanRepayment}`} />
@@ -132,7 +131,7 @@ const UserDetails = () => {
         <div className={styles.topInfo}>
           <div className={styles.avatarSection}>
             <div className={styles.avatarCircle}>
-                <img src={user.profile.avatar} alt="User" />
+              <img src={user.profile.avatar} alt="User" />
             </div>
             <div className={styles.nameSection}>
               <h3>{user.profile.firstName} {user.profile.lastName}</h3>
@@ -142,7 +141,6 @@ const UserDetails = () => {
           <div className={styles.divider} />
           <div className={styles.tierSection}>
             <p>User's Tier</p>
-            {/* FIXED: Added styles. prefix to stars */}
             <div className={styles.stars}>
               <Star size={14} fill="#e9b200" color="#e9b200" />
               <Star size={14} color="#e9b200" />
@@ -157,10 +155,10 @@ const UserDetails = () => {
         </div>
         <div className={styles.tabs}>
           {['General Details', 'Documents', 'Bank Details', 'Loans', 'Savings', 'App and System'].map(tab => (
-            <button 
-                key={tab} 
-                className={activeTab === tab ? styles.activeTab : ''}
-                onClick={() => setActiveTab(tab)}
+            <button
+              key={tab}
+              className={activeTab === tab ? styles.activeTab : ''}
+              onClick={() => setActiveTab(tab)}
             >
               {tab}
             </button>

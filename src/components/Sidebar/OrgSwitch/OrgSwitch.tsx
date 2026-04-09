@@ -7,7 +7,6 @@ const OrgSwitch = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { users, setFilteredUsers } = useUsers();
 
-  // Get unique organizations from our 500 users
   const organizations = Array.from(new Set(users.map(u => u.orgName)));
 
   const handleSwitch = (org: string) => {

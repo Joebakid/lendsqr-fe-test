@@ -15,6 +15,9 @@ export interface User {
     bvn: string;
     address: string;
     currency: string;
+    maritalStatus: string;
+    children: string;
+    typeOfResidence: string;
   };
   guarantor: {
     firstName: string;

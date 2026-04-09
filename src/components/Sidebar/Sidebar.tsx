@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import OrgSwitch from './OrgSwitch/OrgSwitch';
 import styles from './Sidebar.module.scss';
-import { 
-  Users, UserCheck, UserMinus, PiggyBank, HandCoins, 
+import {
+  Users, UserCheck, UserMinus, PiggyBank, HandCoins,
   Landmark, Briefcase, Home, Settings,
-  RotateCcw, UserCog, ScrollText, BarChart3, 
+  RotateCcw, UserCog, ScrollText, BarChart3,
   Settings2, Percent, ClipboardList, X
 } from 'lucide-react';
 
@@ -54,16 +54,14 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
 
   return (
     <>
-      {/* Clickable Overlay to close sidebar on mobile */}
-      <div 
-        className={`${styles.overlay} ${isOpen ? styles.overlayVisible : ''}`} 
-        onClick={() => setIsOpen(false)} 
+      <div
+        className={`${styles.overlay} ${isOpen ? styles.overlayVisible : ''}`}
+        onClick={() => setIsOpen(false)}
       />
 
       <aside className={`${styles.sidebar} ${isOpen ? styles.show : ''}`}>
-        {/* Close Button - specifically for mobile */}
-        <button 
-          className={styles.closeBtn} 
+        <button
+          className={styles.closeBtn}
           onClick={(e) => {
             e.stopPropagation();
             setIsOpen(false);
@@ -76,10 +74,10 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
         <div className={styles.topSection}>
           <OrgSwitch />
 
-          <NavLink 
-            to="/dashboard" 
-            end 
-            className={({ isActive }) => 
+          <NavLink
+            to="/dashboard"
+            end
+            className={({ isActive }) =>
               isActive ? `${styles.link} ${styles.active}` : styles.link
             }
             onClick={() => setIsOpen(false)}
@@ -94,10 +92,10 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
             <div key={section.title} className={styles.section}>
               <p className={styles.sectionTitle}>{section.title}</p>
               {section.links.map((link) => (
-                <NavLink 
-                  key={link.name} 
-                  to={link.path} 
-                  className={({ isActive }) => 
+                <NavLink
+                  key={link.name}
+                  to={link.path}
+                  className={({ isActive }) =>
                     isActive ? `${styles.link} ${styles.active}` : styles.link
                   }
                   onClick={() => setIsOpen(false)}

@@ -9,14 +9,13 @@ export const generate500Users = (): User[] => {
     const genderType = faker.helpers.arrayElement(['male', 'female']) as 'male' | 'female';
     const firstName = faker.person.firstName(genderType);
     const lastName = faker.person.lastName();
-    
-    // Lorelei is better for strict gender-specific traits
+
     const avatar = `https://api.dicebear.com/7.x/lorelei/svg?seed=${firstName}${i}&gender=${genderType}`;
 
     return {
       id: faker.string.uuid(),
       orgName: faker.helpers.arrayElement(organizations),
-      userName: faker.internet.username({ firstName, lastName }), 
+      userName: faker.internet.username({ firstName, lastName }),
       email: faker.internet.email({ firstName, lastName }).toLowerCase(),
       phoneNumber: faker.phone.number({ style: 'national' }),
       lastActiveDate: faker.date.past({ years: 3 }).toISOString(),

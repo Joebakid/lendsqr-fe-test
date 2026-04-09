@@ -1,9 +1,10 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import type { User } from "../types/user";
 import { getLocalUsers } from "../services/db";
 
 interface UserContextType {
   users: User[];
+  setUsers: React.Dispatch<React.SetStateAction<User[]>>;
   filteredUsers: User[];
   setFilteredUsers: (users: User[]) => void;
   loading: boolean;
@@ -24,12 +25,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  
+
   const [currentUser, setCurrentUser] = useState(() => {
     const saved = localStorage.getItem("lendsqr_admin_profile");
-    return saved ? JSON.parse(saved) : { 
-      name: "User", 
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" 
+    return saved ? JSON.parse(saved) : {
+      name: "User",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
     };
   });
 
@@ -57,10 +58,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <UserContext.Provider value={{ 
-      users, filteredUsers, setFilteredUsers, loading, currentUser, 
-      loginUser, updateProfilePic, currentPage, setCurrentPage, 
-      itemsPerPage, setItemsPerPage 
+    <UserContext.Provider value={{
+      users, setUsers, filteredUsers, setFilteredUsers, loading, currentUser,
+      loginUser, updateProfilePic, currentPage, setCurrentPage,
+      itemsPerPage, setItemsPerPage
     }}>
       {children}
     </UserContext.Provider>

@@ -10,7 +10,6 @@ export const getLocalUsers = (): User[] => {
 
 export const seedDatabase = () => {
   const existing = getLocalUsers();
-  // Only generate if the database is empty
   if (existing.length === 0) {
     const users = generate500Users();
     localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
@@ -19,7 +18,6 @@ export const seedDatabase = () => {
   return existing;
 };
 
-// Admin Credentials
 export const MOCK_ADMIN = {
   email: 'admin@lendsqr.com',
   password: 'password123',

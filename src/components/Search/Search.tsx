@@ -8,12 +8,11 @@ const Search = () => {
   const { setFilteredUsers, users } = useUsers();
 
   useEffect(() => {
-    // Debounce logic: Wait for user to finish typing
     const delayDebounceFn = setTimeout(() => {
       const filtered = users.filter((user) =>
         Object.values(user).some((value) =>
           String(value).toLowerCase().includes(searchTerm.toLowerCase())
-        ) || 
+        ) ||
         user.profile.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         user.profile.lastName.toLowerCase().includes(searchTerm.toLowerCase())
       );
@@ -25,9 +24,9 @@ const Search = () => {
 
   return (
     <div className={styles.searchContainer}>
-      <input 
-        type="text" 
-        placeholder="Search for anything" 
+      <input
+        type="text"
+        placeholder="Search for anything"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
