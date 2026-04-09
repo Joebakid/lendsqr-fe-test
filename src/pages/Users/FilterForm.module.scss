@@ -1,0 +1,100 @@
+$primary-blue: #213f7d;
+$text-grey: #545f7d;
+$teal: #39cdcc;
+$border-light: rgba(33, 63, 125, 0.14);
+
+.filterFormContainer {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  width: 270px;
+  background: #ffffff;
+  border: 1px solid $border-light;
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+  padding: 30px 20px;
+  z-index: 2000;
+  cursor: default;
+  text-align: left;
+}
+
+.filterForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      color: $text-grey;
+      display: block;
+    }
+
+    input, select {
+      height: 40px;
+      border: 1px solid rgba($primary-blue, 0.15);
+      border-radius: 8px;
+      padding: 0 15px;
+      font-size: 14px;
+      color: $primary-blue;
+      outline: none;
+      width: 100%;
+      background-color: transparent;
+
+      &::placeholder {
+        color: rgba($primary-blue, 0.3);
+      }
+
+      &:focus {
+        border-color: $teal;
+      }
+    }
+    
+    // Custom style for the date input icon appearance
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      opacity: 0.5;
+      cursor: pointer;
+    }
+  }
+
+  .formActions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+
+    button {
+      width: 48%;
+      height: 40px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .resetBtn {
+      background: #ffffff;
+      border: 1px solid $text-grey;
+      color: $text-grey;
+
+      &:hover {
+        background: #f8f9fb;
+      }
+    }
+
+    .filterBtn {
+      background: $teal;
+      border: 1px solid $teal;
+      color: #ffffff;
+
+      &:hover {
+        background: darken($teal, 5%);
+      }
+    }
+  }
+}

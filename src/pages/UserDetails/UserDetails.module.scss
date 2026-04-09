@@ -1,0 +1,119 @@
+.container {
+  padding: 30px 60px;
+  background: #fbfbfb;
+  min-height: 100vh;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  color: #545f7d;
+  cursor: pointer;
+  margin-bottom: 25px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  
+  .title { color: #213f7d; font-size: 24px; font-weight: 500; }
+  
+  .actions {
+    display: flex; gap: 20px;
+    button {
+      padding: 12px 18px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer;
+    }
+    .blacklistBtn { border: 1px solid #e4033b; color: #e4033b; background: none; }
+    .activateBtn { border: 1px solid #39cdcc; color: #39cdcc; background: none; }
+  }
+}
+
+.profileHeader {
+  background: white;
+  border-radius: 4px;
+  padding: 30px 30px 0 30px;
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+  margin-bottom: 30px;
+
+  .topInfo {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 50px;
+
+    .avatarSection {
+      display: flex; align-items: center; gap: 20px;
+      img { width: 100px; height: 100px; border-radius: 50%; }
+      h3 { color: #213f7d; font-size: 22px; margin-bottom: 4px; }
+      p { color: #545f7d; font-size: 14px; }
+    }
+
+    .divider { height: 80px; width: 1px; background: rgba(84, 95, 125, 0.2); }
+
+    .tierSection {
+      p { font-size: 14px; color: #545f7d; margin-bottom: 10px; }
+      .stars { display: flex; gap: 4px; }
+    }
+
+    .bankSection {
+      h3 { color: #213f7d; font-size: 22px; margin-bottom: 4px; }
+      p { font-size: 14px; color: #213f7d; }
+    }
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: space-between;
+    button {
+      background: none; border: none; padding: 10px 20px; color: black; font-size: 16px; cursor: pointer;
+      &.activeTab { color: #39cdcc; border-bottom: 2px solid #39cdcc; }
+    }
+  }
+}
+
+.infoCard {
+  background: white; padding: 30px; border-radius: 4px; box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+
+  .infoSection {
+    border-bottom: 1px solid rgba(33, 63, 125, 0.1);
+    margin-bottom: 30px; padding-bottom: 30px;
+    &:last-child { border: none; }
+    
+    h4 { color: #213f7d; font-size: 16px; font-weight: 500; margin-bottom: 30px; }
+    
+    .grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 30px;
+    }
+  }
+}
+
+.infoItem {
+  .label { font-size: 12px; color: #545f7d; margin-bottom: 8px; text-transform: uppercase; }
+  .value { font-size: 16px; font-weight: 600; color: #545f7d; }
+}
+
+.infoSection {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); // Figma uses 5 columns
+    gap: 30px;
+    row-gap: 40px;
+  }
+}
+
+.avatarCircle {
+  width: 100px;
+  height: 100px;
+  background: #D5D6DC;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  img { width: 100%; height: 100%; object-fit: cover; }
+}

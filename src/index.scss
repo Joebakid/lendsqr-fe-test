@@ -1,0 +1,16 @@
+/* Remove the dark mode media query and the #root fixed width */
+:root {
+  --primary-color: #213F7D;
+  --secondary-color: #39CDCC;
+  --text-color: #545F7D;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif; /* Use the font specified in Figma */
+  background-color: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}

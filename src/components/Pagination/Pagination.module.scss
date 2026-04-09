@@ -1,0 +1,125 @@
+.paginationContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  margin-top: 20px;
+  color: #545f7d;
+  font-size: 14px;
+  flex-wrap: wrap; // Allows stacking on small screens
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .text {
+      opacity: 0.9;
+    }
+
+    .selectWrapper {
+      position: relative;
+      
+      select {
+        background: rgba(33, 63, 125, 0.1);
+        border: none;
+        padding: 7px 12px;
+        border-radius: 4px;
+        color: #213f7d;
+        font-weight: 600;
+        cursor: pointer;
+        outline: none;
+        appearance: none; // Removes default browser styling
+        padding-right: 30px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23213f7d' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'%3E%3C/path%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    @media (max-width: 480px) {
+      gap: 5px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .pages {
+      display: flex;
+      align-items: center;
+      
+      @media (max-width: 480px) {
+        // Hide some pages on extra small screens if needed
+        // For now, we keep them but allow shrinking
+      }
+    }
+
+    .arrow {
+      background: rgba(33, 63, 125, 0.1);
+      border: none;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      cursor: pointer;
+      color: #213f7d;
+      transition: background 0.2s;
+
+      &:hover:not(:disabled) {
+        background: rgba(33, 63, 125, 0.2);
+      }
+
+      &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+    }
+
+    .pageBtn {
+      background: none;
+      border: none;
+      color: #545f7d;
+      padding: 5px 8px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 4px;
+      opacity: 0.6;
+      transition: all 0.2s;
+
+      &:hover:not(.dots) {
+        color: #213f7d;
+        opacity: 1;
+      }
+
+      &.active {
+        font-weight: 600;
+        color: #213f7d;
+        opacity: 1;
+      }
+
+      &.dots {
+        cursor: default;
+        padding: 5px 2px;
+      }
+
+      @media (max-width: 480px) {
+        padding: 5px 5px;
+        font-size: 13px;
+      }
+    }
+  }
+}

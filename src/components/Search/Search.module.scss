@@ -1,0 +1,30 @@
+.searchContainer {
+  display: flex;
+  width: 400px;
+  height: 40px;
+  border: 1px solid rgba(84, 95, 125, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+
+  input {
+    flex: 1;
+    border: none;
+    padding: 0 20px;
+    font-size: 14px;
+    outline: none;
+    color: #545f7d;
+    &::placeholder { color: rgba(84, 95, 125, 0.5); }
+  }
+
+  .searchBtn {
+    background: #39cdcc;
+    border: none;
+    width: 56px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover { background: darken(#39cdcc, 5%); }
+  }
+}

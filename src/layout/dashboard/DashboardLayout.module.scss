@@ -1,0 +1,19 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.mainWrapper {
+  display: flex;
+  flex: 1;
+  overflow: hidden; // Prevents double scrollbars
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto; // Main scroll happens here
+  background: #FBFBFB;
+  padding-bottom: 50px;
+}

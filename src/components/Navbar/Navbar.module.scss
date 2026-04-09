@@ -1,0 +1,164 @@
+.header {
+  height: 100px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 60px;
+  box-shadow: 3px 0px 20px rgba(0, 0, 0, 0.04);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  @media (max-width: 1024px) {
+    padding: 0 20px;
+    height: 70px;
+  }
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  .menuBtn {
+    display: none;
+    background: none;
+    border: none;
+    color: #213f7d;
+    cursor: pointer;
+
+    @media (max-width: 1024px) {
+      display: block;
+    }
+  }
+}
+
+.logoArea {
+  .logoImg {
+    width: 140px;
+    cursor: pointer;
+    display: block;
+
+    @media (max-width: 480px) {
+      width: 110px;
+    }
+  }
+}
+
+.searchWrapper {
+  flex: 1;
+  max-width: 400px;
+  margin: 0 30px;
+
+  @media (max-width: 768px) {
+    display: none; // Hide search on mobile, or you can toggle it
+  }
+}
+
+.userArea {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  color: #213f7d;
+
+  @media (max-width: 480px) {
+    gap: 15px;
+  }
+
+  .docs {
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 16px;
+
+    @media (max-width: 600px) {
+      display: none; // Hide "Docs" on small mobile
+    }
+  }
+
+  .iconWrapper {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profileContainer {
+    position: relative;
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+
+      .avatarWrapper {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: #f0f0f0;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        @media (max-width: 480px) {
+            width: 32px;
+            height: 32px;
+        }
+      }
+
+      .name {
+        font-weight: 500;
+        font-size: 16px;
+
+        @media (max-width: 768px) {
+          display: none; // Hide name on tablet/mobile
+        }
+      }
+
+      .rotate {
+        transform: rotate(180deg);
+        transition: transform 0.2s;
+      }
+    }
+  }
+
+  .dropdown {
+    position: absolute;
+    top: calc(100% + 20px);
+    right: 0;
+    background: #fff;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 8px;
+    min-width: 180px;
+    border: 1px solid rgba(33, 63, 125, 0.05);
+    
+    .dropdownItem, .logoutBtn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      width: 100%;
+      cursor: pointer;
+      font-size: 14px;
+      border: none;
+      background: none;
+      color: #213f7d;
+      border-radius: 4px;
+      text-align: left;
+
+      &:hover {
+        background: #f8f9fb;
+      }
+    }
+
+    .logoutBtn {
+      border-top: 1px solid rgba(33, 63, 125, 0.1);
+      margin-top: 5px;
+      color: #e4033b;
+    }
+  }
+}

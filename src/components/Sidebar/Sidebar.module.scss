@@ -1,0 +1,119 @@
+.sidebar {
+  width: 283px;
+  height: 100vh;
+  background: #ffffff;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1100; // Above everything
+
+  @media (max-width: 1024px) {
+    position: fixed;
+    left: 0;
+    top: 0;
+    transform: translateX(-100%);
+    &.show {
+      transform: translateX(0);
+    }
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(33, 63, 125, 0.2);
+  backdrop-filter: blur(2px);
+  z-index: 1050; // Just below sidebar
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+
+  &.overlayVisible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.closeBtn {
+  display: none;
+  background: #f8f9fb;
+  border: none;
+  color: #213f7d;
+  position: absolute;
+  top: 15px;
+  right: -50px; // Pops out of the sidebar slightly for better hit area
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200; // Highest point
+
+  @media (max-width: 1024px) {
+    display: flex;
+    right: 15px; // Back inside on mobile for safety
+  }
+}
+
+.topSection {
+  padding-top: 30px;
+}
+
+.menuScroll {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 30px;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(33, 63, 125, 0.1);
+    border-radius: 10px;
+  }
+}
+
+.section {
+  margin-top: 30px;
+  
+  .sectionTitle {
+    font-size: 12px;
+    font-weight: 600;
+    color: #545f7d;
+    padding: 0 30px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+  }
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 30px;
+  text-decoration: none;
+  color: #213f7d;
+  opacity: 0.6;
+  border-left: 3px solid transparent;
+  font-size: 16px;
+  transition: all 0.2s ease;
+
+  &.active {
+    opacity: 1;
+    background: rgba(57, 205, 204, 0.06);
+    border-left-color: #39cdcc;
+  }
+
+  &:hover {
+    background: rgba(57, 205, 204, 0.03);
+    opacity: 1;
+  }
+}
