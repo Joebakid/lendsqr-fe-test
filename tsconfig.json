@@ -2,6 +2,7 @@
   "compilerOptions": {
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "module": "ESNext"
   }
 }
