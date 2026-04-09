@@ -1,3 +1,7 @@
+$primary-blue: #213f7d;
+$text-grey: #545f7d;
+$teal: #39cdcc;
+
 .sidebar {
   width: 283px;
   height: 100vh;
@@ -8,7 +12,7 @@
   position: sticky;
   top: 0;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1100; // Above everything
+  z-index: 1100;
 
   @media (max-width: 1024px) {
     position: fixed;
@@ -29,7 +33,7 @@
   height: 100vh;
   background: rgba(33, 63, 125, 0.2);
   backdrop-filter: blur(2px);
-  z-index: 1050; // Just below sidebar
+  z-index: 1050;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -44,10 +48,10 @@
   display: none;
   background: #f8f9fb;
   border: none;
-  color: #213f7d;
+  color: $primary-blue;
   position: absolute;
   top: 15px;
-  right: -50px; // Pops out of the sidebar slightly for better hit area
+  right: 15px;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -55,11 +59,10 @@
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  z-index: 1200; // Highest point
+  z-index: 1200;
 
   @media (max-width: 1024px) {
     display: flex;
-    right: 15px; // Back inside on mobile for safety
   }
 }
 
@@ -87,7 +90,7 @@
   .sectionTitle {
     font-size: 12px;
     font-weight: 600;
-    color: #545f7d;
+    color: $text-grey;
     padding: 0 30px;
     margin-bottom: 15px;
     text-transform: uppercase;
@@ -100,20 +103,28 @@
   gap: 12px;
   padding: 10px 30px;
   text-decoration: none;
-  color: #213f7d;
+  color: $primary-blue;
   opacity: 0.6;
   border-left: 3px solid transparent;
   font-size: 16px;
   transition: all 0.2s ease;
+  cursor: pointer;
 
   &.active {
     opacity: 1;
     background: rgba(57, 205, 204, 0.06);
-    border-left-color: #39cdcc;
+    border-left-color: $teal;
+    font-weight: 500;
   }
 
   &:hover {
     background: rgba(57, 205, 204, 0.03);
     opacity: 1;
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

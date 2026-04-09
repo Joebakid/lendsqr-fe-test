@@ -76,7 +76,7 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
 
           <NavLink
             to="/dashboard"
-            end
+            end // This ensures it's only active exactly at /dashboard
             className={({ isActive }) =>
               isActive ? `${styles.link} ${styles.active}` : styles.link
             }
@@ -95,9 +95,12 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
                 <NavLink
                   key={link.name}
                   to={link.path}
-                  className={({ isActive }) =>
-                    isActive ? `${styles.link} ${styles.active}` : styles.link
-                  }
+                  // We use a custom isActive for 'Users' so it highlights when on /dashboard
+                  className={({ isActive }) => {
+                    const isDashboardRoot = window.location.pathname === '/dashboard';
+                    const isUsersActive = link.name === 'Users' && isDashboardRoot;
+                    return (isActive || isUsersActive) ? `${styles.link} ${styles.active}` : styles.link;
+                  }}
                   onClick={() => setIsOpen(false)}
                 >
                   <span className={styles.icon}>{link.icon}</span>

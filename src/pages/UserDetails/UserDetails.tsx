@@ -2,25 +2,70 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useUsers } from '../../context/UserContext';
 import { ArrowLeft, Star } from 'lucide-react';
+import Loader from '../../components/Loader/Loader';
 import styles from './UserDetails.module.scss';
 
 const UserDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { users } = useUsers();
+  
   const [activeTab, setActiveTab] = useState('General Details');
+  const [isPageLoading, setIsPageLoading] = useState(true);
+  const [isTabLoading, setIsTabLoading] = useState(false);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    const mainArea = document.querySelector('main');
-    if (mainArea) mainArea.scrollTo(0, 0);
+    setIsPageLoading(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Simulate initial data fetching
+    const timer = setTimeout(() => {
+      setIsPageLoading(false);
+    }, 800);
+
+    return () => clearTimeout(timer);
   }, [id]);
+
+  const handleTabChange = (tab: string) => {
+    if (tab === activeTab) return;
+    setIsTabLoading(true);
+    setActiveTab(tab);
+    
+    // Smooth transition between tabs
+    setTimeout(() => {
+      setIsTabLoading(false);
+    }, 400);
+  };
 
   const user = users.find((u) => u.id === id);
 
-  if (!user) return <div className={styles.error}>User not found</div>;
+  if (isPageLoading) {
+    return <Loader fullScreen={true} message="Fetching user details..." size="large" />;
+  }
+
+  if (!user) {
+    return (
+      <div className={styles.container}>
+        <button className={styles.backBtn} onClick={() => navigate('/dashboard')}>
+          <ArrowLeft size={16} /> <span>Back to Users</span>
+        </button>
+        <div className={styles.errorCard}>
+          <h2>User not found</h2>
+          <p>The user record you are looking for does not exist or has been moved.</p>
+        </div>
+      </div>
+    );
+  }
 
   const renderTabContent = () => {
+    if (isTabLoading) {
+      return (
+        <div className={styles.tabLoaderContainer}>
+          <Loader message={`Loading ${activeTab}...`} size="medium" />
+        </div>
+      );
+    }
+
     switch (activeTab) {
       case 'General Details':
         return (
@@ -67,7 +112,7 @@ const UserDetails = () => {
                 <InfoItem label="FULL NAME" value={`${user.guarantor.firstName} ${user.guarantor.lastName}`} />
                 <InfoItem label="PHONE NUMBER" value={user.guarantor.phoneNumber} />
                 <InfoItem label="GENDER" value={user.guarantor.gender} />
-                <InfoItem label="RELATIONSHIP" value="Sister" />
+                <InfoItem label="RELATIONSHIP" value="Brother/Sister" />
               </div>
             </section>
           </div>
@@ -81,22 +126,8 @@ const UserDetails = () => {
               <div className={styles.grid}>
                 <InfoItem label="BANK NAME" value="Providus Bank" />
                 <InfoItem label="ACCOUNT NUMBER" value={user.profile.bvn} />
-                <InfoItem label="CURRENCY" value={user.profile.currency} />
+                <InfoItem label="CURRENCY" value={user.profile.currency || 'NGN'} />
                 <InfoItem label="ACCOUNT TYPE" value="Savings" />
-              </div>
-            </section>
-          </div>
-        );
-
-      case 'Loans':
-        return (
-          <div className={styles.infoCard}>
-            <section className={styles.infoSection}>
-              <h4>Loan Information</h4>
-              <div className={styles.grid}>
-                <InfoItem label="LOAN REPAYMENT" value={`₦${user.education.loanRepayment}`} />
-                <InfoItem label="ACTIVE LOANS" value="1" />
-                <InfoItem label="TOTAL DEBT" value={`₦${user.education.loanRepayment}`} />
               </div>
             </section>
           </div>
@@ -131,14 +162,16 @@ const UserDetails = () => {
         <div className={styles.topInfo}>
           <div className={styles.avatarSection}>
             <div className={styles.avatarCircle}>
-              <img src={user.profile.avatar} alt="User" />
+              <img src={user.profile.avatar} alt="User avatar" />
             </div>
             <div className={styles.nameSection}>
               <h3>{user.profile.firstName} {user.profile.lastName}</h3>
-              <p>{user.id.substring(0, 8)}</p>
+              <p>{user.id.substring(0, 10).toUpperCase()}</p>
             </div>
           </div>
+          
           <div className={styles.divider} />
+          
           <div className={styles.tierSection}>
             <p>User's Tier</p>
             <div className={styles.stars}>
@@ -147,26 +180,33 @@ const UserDetails = () => {
               <Star size={14} color="#e9b200" />
             </div>
           </div>
+          
           <div className={styles.divider} />
+          
           <div className={styles.bankSection}>
             <h3>₦{user.education.monthlyIncome[1]}</h3>
             <p>{user.profile.bvn}/Providus Bank</p>
           </div>
         </div>
-        <div className={styles.tabs}>
-          {['General Details', 'Documents', 'Bank Details', 'Loans', 'Savings', 'App and System'].map(tab => (
-            <button
-              key={tab}
-              className={activeTab === tab ? styles.activeTab : ''}
-              onClick={() => setActiveTab(tab)}
-            >
-              {tab}
-            </button>
-          ))}
+
+        <div className={styles.tabsWrapper}>
+          <div className={styles.tabs}>
+            {['General Details', 'Documents', 'Bank Details', 'Loans', 'Savings', 'App and System'].map(tab => (
+              <button
+                key={tab}
+                className={activeTab === tab ? styles.activeTab : ''}
+                onClick={() => handleTabChange(tab)}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      {renderTabContent()}
+      <div className={styles.contentArea}>
+        {renderTabContent()}
+      </div>
     </div>
   );
 };
@@ -174,7 +214,7 @@ const UserDetails = () => {
 const InfoItem = ({ label, value }: { label: string; value: string }) => (
   <div className={styles.infoItem}>
     <p className={styles.label}>{label}</p>
-    <p className={styles.value}>{value}</p>
+    <p className={styles.value}>{value || 'N/A'}</p>
   </div>
 );
 

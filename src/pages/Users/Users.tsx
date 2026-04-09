@@ -11,7 +11,7 @@ import {
   LoanIcon, 
   SavingsIcon 
 } from "../../components/Icons/StatsIcons";
-import { MoreVertical, Filter } from "lucide-react";
+import { MoreVertical, ListFilter } from "lucide-react";
 import styles from "./Users.module.scss";
 
 const Users = () => {
@@ -104,7 +104,7 @@ const Users = () => {
                       }}
                     >
                       <span>{head}</span>
-                      <Filter size={14} className={styles.filterIcon} />
+                      <ListFilter size={14} className={styles.filterIcon} />
                     </div>
                     
                     {openFilter === head && (
@@ -122,47 +122,55 @@ const Users = () => {
               </tr>
             </thead>
             <tbody>
-              {currentUsers.map((user) => (
-                <tr 
-                  key={user.id} 
-                  onClick={() => navigate(`/dashboard/users/${user.id}`)}
-                  className={styles.clickableRow}
-                >
-                  <td>{user.orgName}</td>
-                  <td>{user.userName}</td>
-                  <td>{user.email}</td>
-                  <td>{user.phoneNumber}</td>
-                  <td>
-                    {new Date(user.lastActiveDate).toLocaleString('en-US', { 
-                      month: 'short', 
-                      day: 'numeric', 
-                      year: 'numeric', 
-                      hour: 'numeric', 
-                      minute: '2-digit' 
-                    })}
-                  </td>
-                  <td>
-                    <span className={`${styles.statusBadge} ${styles[user.status.toLowerCase()]}`}>
-                      {user.status}
-                    </span>
-                  </td>
-                  <td className={styles.actionCell} onClick={(e) => e.stopPropagation()}>
-                    <button 
-                      className={styles.menuBtn}
-                      onClick={() => setActiveMenu(activeMenu === user.id ? null : user.id)}
-                    >
-                      <MoreVertical size={18} />
-                    </button>
+              {currentUsers.length > 0 ? (
+                currentUsers.map((user) => (
+                  <tr 
+                    key={user.id} 
+                    onClick={() => navigate(`/dashboard/users/${user.id}`)}
+                    className={styles.clickableRow}
+                  >
+                    <td>{user.orgName}</td>
+                    <td>{user.userName}</td>
+                    <td>{user.email}</td>
+                    <td>{user.phoneNumber}</td>
+                    <td>
+                      {new Date(user.lastActiveDate).toLocaleString('en-US', { 
+                        month: 'short', 
+                        day: 'numeric', 
+                        year: 'numeric', 
+                        hour: 'numeric', 
+                        minute: '2-digit' 
+                      })}
+                    </td>
+                    <td>
+                      <span className={`${styles.statusBadge} ${styles[user.status.toLowerCase()]}`}>
+                        {user.status}
+                      </span>
+                    </td>
+                    <td className={styles.actionCell} onClick={(e) => e.stopPropagation()}>
+                      <button 
+                        className={styles.menuBtn}
+                        onClick={() => setActiveMenu(activeMenu === user.id ? null : user.id)}
+                      >
+                        <MoreVertical size={18} />
+                      </button>
 
-                    {activeMenu === user.id && (
-                      <UserActionMenu 
-                        userId={user.id} 
-                        onClose={() => setActiveMenu(null)} 
-                      />
-                    )}
+                      {activeMenu === user.id && (
+                        <UserActionMenu 
+                          userId={user.id} 
+                          onClose={() => setActiveMenu(null)} 
+                        />
+                      )}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={7} className={styles.emptyState}>
+                    No users found matching the criteria.
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
