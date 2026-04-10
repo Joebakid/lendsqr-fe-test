@@ -17,7 +17,6 @@ $shadow-popover: 3px 5px 20px rgba(0, 0, 0, 0.15);
   font-weight: 500;
   color: $primary-blue;
   margin-bottom: 40px;
-  @media (max-width: 768px) { font-size: 20px; margin-bottom: 30px; }
 }
 
 .statsGrid {
@@ -26,7 +25,7 @@ $shadow-popover: 3px 5px 20px rgba(0, 0, 0, 0.15);
   gap: 26px;
   margin-bottom: 40px;
   @media (max-width: 1200px) { grid-template-columns: repeat(2, 1fr); }
-  @media (max-width: 600px) { grid-template-columns: 1fr; gap: 20px; }
+  @media (max-width: 600px) { grid-template-columns: 1fr; }
 }
 
 .statCard {
@@ -35,12 +34,7 @@ $shadow-popover: 3px 5px 20px rgba(0, 0, 0, 0.15);
   box-shadow: $shadow-main;
   border-radius: 4px;
   padding: 20px 30px;
-  display: flex;
-  flex-direction: column;
-  .iconCircle {
-    width: 40px; height: 40px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
-  }
+  .iconCircle { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
   .statLabel { font-size: 14px; font-weight: 600; color: $text-grey; text-transform: uppercase; margin-bottom: 12px; }
   .statCount { font-size: 24px; font-weight: 600; color: $primary-blue; }
 }
@@ -51,44 +45,55 @@ $shadow-popover: 3px 5px 20px rgba(0, 0, 0, 0.15);
   box-shadow: $shadow-main;
   border-radius: 4px;
   padding: 30px;
-  position: relative;
   @media (max-width: 768px) { padding: 15px; }
 }
 
 .tableResponsiveWrapper {
   width: 100%;
   overflow-x: auto;
-  padding-bottom: 100px;
-  margin-bottom: -100px;
-  &::-webkit-scrollbar { height: 6px; }
-  &::-webkit-scrollbar-track { background: #f1f1f1; }
-  &::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+  overflow-y: visible; // Allow vertical popovers to show
+  padding-bottom: 150px; // Space for menus on bottom rows
+  margin-bottom: -150px; // Offset the padding
 }
 
 .userTable {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate; // Better for z-indexing than 'collapse'
+  border-spacing: 0;
   min-width: 900px;
+
   th {
     padding: 0 10px 20px 10px;
     text-align: left;
+    position: relative; // For FilterForm anchoring
+    z-index: 2; // Keep header above rows
+
     .thContent {
       display: flex; align-items: center; gap: 10px;
       font-size: 12px; font-weight: 600; color: $text-grey; cursor: pointer;
-      .filterIcon { opacity: 0.7; transition: opacity 0.2s; }
+      .filterIcon { opacity: 0.7; }
       &:hover .filterIcon { opacity: 1; }
     }
   }
+
   td {
     padding: 20px 10px; font-size: 14px; color: $text-grey;
-    border-bottom: 1px solid rgba(33, 63, 125, 0.07); white-space: nowrap;
+    border-bottom: 1px solid rgba(33, 63, 125, 0.07);
+    white-space: nowrap;
   }
 }
 
 .clickableRow {
   cursor: pointer;
-  transition: background 0.2s ease;
+  position: relative;
+  transition: background 0.2s;
+  
   &:hover { background-color: rgba(33, 63, 125, 0.02); }
+  
+  // Bring active row to the front so menu shows over others
+  &.activeRow {
+    z-index: 10;
+  }
 }
 
 .statusBadge {
@@ -101,7 +106,9 @@ $shadow-popover: 3px 5px 20px rgba(0, 0, 0, 0.15);
 }
 
 .actionCell {
-  position: relative; text-align: right; overflow: visible !important;
+  position: relative; 
+  text-align: right;
+
   .menuBtn {
     background: none; border: none; cursor: pointer; color: $text-grey;
     padding: 5px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -114,5 +121,118 @@ $shadow-popover: 3px 5px 20px rgba(0, 0, 0, 0.15);
   @media (max-width: 768px) { display: flex; justify-content: center; }
 }
 
-.loading { display: flex; justify-content: center; align-items: center; height: 300px; font-weight: 600; color: $primary-blue; }
 .emptyState { text-align: center; padding: 50px 0; color: $text-grey; font-style: italic; }
+
+.popoverOverlay {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(33, 63, 125, 0.3);
+    backdrop-filter: blur(2px);
+    z-index: 99;
+    animation: fadeIn 0.2s ease;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.actionPopover {
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ffffff;
+  border: 1px solid $border-color;
+  box-shadow: $shadow-popover;
+  border-radius: 4px;
+  z-index: 100;
+  min-width: 160px;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    position: fixed;
+    right: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 280px;
+    min-width: unset;
+    border-radius: 8px;
+    z-index: 101;
+    animation: slideUp 0.2s ease;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.popoverClose {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(84, 95, 125, 0.1);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    color: $text-grey;
+    transition: background 0.2s;
+
+    &:hover {
+      background: rgba(228, 3, 59, 0.1);
+      color: #e4033b;
+    }
+  }
+}
+
+.popItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: $text-grey;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background: rgba(57, 204, 204, 0.1);
+    color: $primary-blue;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    padding: 20px 24px;
+    font-size: 16px;
+    gap: 16px;
+
+    &:first-of-type {
+      padding-top: 52px;
+    }
+  }
+}

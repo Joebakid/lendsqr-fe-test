@@ -95,7 +95,7 @@ const Users = () => {
             <thead>
               <tr>
                 {["ORGANIZATION", "USERNAME", "EMAIL", "PHONE NUMBER", "DATE JOINED", "STATUS"].map((head) => (
-                  <th key={head} style={{ position: 'relative' }}>
+                  <th key={head} className={styles.headerCell}>
                     <div 
                       className={styles.thContent} 
                       onClick={(e) => {
@@ -127,7 +127,7 @@ const Users = () => {
                   <tr 
                     key={user.id} 
                     onClick={() => navigate(`/dashboard/users/${user.id}`)}
-                    className={styles.clickableRow}
+                    className={`${styles.clickableRow} ${activeMenu === user.id ? styles.activeRow : ''}`}
                   >
                     <td>{user.orgName}</td>
                     <td>{user.userName}</td>
